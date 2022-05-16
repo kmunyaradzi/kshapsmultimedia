@@ -28,6 +28,6 @@ class HomeController extends Controller
 
     public function Hq()
     {
-        return 'home  you reached home';
+        return view('pages.dashboard');
     }
 }
