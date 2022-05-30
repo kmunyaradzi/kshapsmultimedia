@@ -31,3 +31,4 @@ Route::middleware(['auth','isAdmin'])->group(function()
     Route::get('dashboard', [HomeController::class, 'Hq'])->name('home');
 });
 
+Route::get('logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');

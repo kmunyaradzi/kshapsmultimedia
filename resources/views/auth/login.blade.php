@@ -59,5 +59,4 @@
 <script src="{{ asset('js/popper.js') }}" defer></script>
 <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
 <script src="{{ asset('js/main.js') }}" defer></script>
-
 </html>
