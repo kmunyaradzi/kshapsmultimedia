@@ -1,62 +1,56 @@
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <title>Login 10</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<x-guest-layout>
+    <x-auth-card>
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </x-slot>
 
-      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-      <link rel="stylesheet" href="css/style.css">
-      <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-      </head>
+            <!-- Email Address -->
+            <div>
+                <x-label for="email" :value="__('Email')" />
 
-        <body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
-            <section class="ftco-section">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 text-center mb-5">
-                            <h2 class="heading-section">Login </h2>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 col-lg-4">
-                            <div class="login-wrap p-0">
-                          <h3 class="mb-4 text-center">Welcome</h3>
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+            </div>
 
-                          <form method="POST" action="{{ route('login') }}" class="signin-form">
-                                      @csrf
-                              <div class="form-group">
-                                  <input type="email" name="email" value="email" class="form-control" placeholder="Email Address"  value="{{ old('email') }}" required>
-                              </div>
+            <!-- Password -->
+            <div class="mt-4">
+                <x-label for="password" :value="__('Password')" />
 
-                             <div class="form-group">
-                                 <input id="password-field" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                </div>
+                <x-input id="password" class="block mt-1 w-full"
+                                type="password"
+                                name="password"
+                                required autocomplete="current-password" />
+            </div>
 
-                        <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary submit px-3">Log In</button>
-                        </div>
-                      </form>
-                      </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!-- Remember Me -->
+            <div class="block mt-4">
+                <label for="remember_me" class="inline-flex items-center">
+                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                </label>
+            </div>
 
-            <script src="js/jquery.min.js"></script>
-          <script src="js/popper.js"></script>
-          <script src="js/bootstrap.min.js"></script>
-          <script src="js/main.js"></script>
+            <div class="flex items-center justify-end mt-4">
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
 
-            </body>
-
-<!-- Vendor JS Files -->
-<script src="{{ asset('js/jquery.min.js') }}" defer></script>
-<script src="{{ asset('js/popper.js') }}" defer></script>
-<script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
-<script src="{{ asset('js/main.js') }}" defer></script>
-</html>
+                <x-button class="ml-3">
+                    {{ __('Log in') }}
+                </x-button>
+            </div>
+        </form>
+    </x-auth-card>
+</x-guest-layout>

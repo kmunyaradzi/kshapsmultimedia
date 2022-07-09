@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ADMIN\AdminController;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,19 +14,15 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Auth::routes();
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::middleware(['auth','isAdmin'])->group(function()
- {
-    Route::get('dashboard', [HomeController::class, 'Hq'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::get('admin/dashboard',[AdminController::class,'dashboard']);
+Route::get('admin/login',[AdminController::class,'login']);
